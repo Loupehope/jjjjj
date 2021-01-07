@@ -1,5 +1,9 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.12.1](https://github.com/TouchInstinct/LeadKit/compare/0.12.0...0.12.1) (2021-01-07)
+
 ## [0.12.0](https://github.com/TouchInstinct/LeadKit/tree/0.12.0) (2020-12-24)
 
 [Full Changelog](https://github.com/TouchInstinct/LeadKit/compare/0.11.1...0.12.0)
