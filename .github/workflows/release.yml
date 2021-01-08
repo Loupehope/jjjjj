@@ -25,13 +25,11 @@ jobs:
     - name: Bump version
       run: |
         npx standard-version -t ''
-        echo "$(git show-ref --tags)"
         echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
         export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
         find . -name '*.podspec' | xargs -I% npx podspec-bump -i "0.12.0" -w -p %
         git add -A
         git commit --amend --no-edit
-        echo "$(git show-ref --tags)"
   
     - name: Push changes
       uses: ad-m/github-push-action@master
@@ -49,6 +47,7 @@ jobs:
         release_name: LeadKit ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
+        commitish: ${{ secrets.GITHUB_SHA }}
 
     - name: Deploy to Cocoapods
       run: |
