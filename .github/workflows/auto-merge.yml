@@ -21,13 +21,13 @@ jobs:
     name: Auto merge after successful checks
     needs: autoapprove
     runs-on: ubuntu-latest
-    
-    - uses: actions-ecosystem/action-add-labels@v1
+
+    steps:
+      - uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: automerge
 
-    steps:
       - name: Auto merge
         uses: pascalgn/automerge-action@v0.13.0
         env:
