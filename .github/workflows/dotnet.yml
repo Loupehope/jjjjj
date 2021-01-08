@@ -1,8 +1,7 @@
 name: release
 
 on:
-  pull_request_review:
-    types: [submitted]
+  push:
     branches: [ master, main ]
 
 env:
@@ -10,14 +9,14 @@ env:
 
 jobs:
   create-release:
-    if: github.event.review.state == 'approved'
     
     runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
       with:
-          fetch-depth: 0      
+          fetch-depth: 0
+          persist-credentials: false
 
     - name: Configure SSH
       run: |
@@ -47,7 +46,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.event.pull_request.head.ref }}
+        branch: ${{ github.ref }}
 
     - name: Create Release
       id: create_release
