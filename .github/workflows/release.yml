@@ -9,48 +9,29 @@ env:
 
 jobs:
   create-release:
-    
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2  
       with:
-          fetch-depth: 0
-          persist-credentials: false
-
-    - name: Configure SSH
-      run: |
-        mkdir -p ~/.ssh/
-        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-        echo "$key" > ~/.ssh/id_rsa
-        chmod 400 ~/.ssh/id_rsa
-        ssh-add
-      env:
-        key: ${{ secrets.SSH_KEY }}
-    
-    - name: Config Git
-      run: |
-        git config --global user.name "RxRealm Maintainers"
-        git config --global user.email "rx-realm@rxswift.org"
+        token: ${{ secrets.RELEASE_TOKEN }}
 
     - name: Fetch all tags
-      run: |
-        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-        
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
     - name: Bump version
       run: |
         npx standard-version -t ''
         echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
         export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
-        find . -name '*.podspec' | xargs -I% npx podspec-bump -i $VERSION -w -p %
+        find . -name '*.podspec' | xargs -I% npx podspec-bump -i "0.12.0" -w -p %
         git add -A
         git commit --amend --no-edit
-
+  
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.RELEASE_TOKEN }}
         branch: ${{ github.ref }}
 
     - name: Create Release
@@ -63,3 +44,9 @@ jobs:
         release_name: LeadKit ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
+
+    - name: Deploy to Cocoapods
+      run: |
+        set -euo pipefail
+        pod repo add touchinstinct https://github.com/TouchInstinct/Podspecs
+        find . -name '*.podspec' | xargs -I% pod repo push https://github.com/TouchInstinct/Podspecs % --allow-warnings
