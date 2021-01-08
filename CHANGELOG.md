@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2021-01-08)
+
+
+### Features
+
+* update script ([4f5aa52](https://github.com/Loupehope/jjjjj/commit/4f5aa5256b2fcf85d76fbc4247860a300f9f323c))
+
 ### 1.0.1 (2021-01-08)
 
 ### [0.12.1](https://github.com/TouchInstinct/LeadKit/compare/0.12.0...0.12.1) (2021-01-07)
