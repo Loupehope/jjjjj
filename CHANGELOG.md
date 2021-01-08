@@ -28,6 +28,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## 2.0.0 (2021-01-08)
 
+## [4.0.0](https://github.com/Loupehope/jjjjj/compare/3.0.0...4.0.0) (2021-01-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* update workflow
+
+### Features
+
+* update workflow ([2640939](https://github.com/Loupehope/jjjjj/commit/2640939fe9ece3fe701fe097e18600075aa5973e))
+
+## 2.0.0 (2021-01-08)
+
 ## [3.0.0](https://github.com/Loupehope/jjjjj/compare/2.0.0...3.0.0) (2021-01-08)
 
 
