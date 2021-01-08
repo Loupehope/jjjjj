@@ -1,0 +1,30 @@
+name: release
+
+on:
+  pull_request:
+    branches: [ master, main ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
+
+jobs:
+  create-release:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2      
+
+    - name: Configure SSH
+      run: |
+        mkdir -p ~/.ssh/
+        ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+        echo "$key" > ~/.ssh/id_rsa
+        ssh-add
+      env:
+        key: ${{ secrets.SSH_KEY }}
+
+    - name: Deploy to Cocoapods
+      run: |
+        set -euo pipefail
+        export RELEASE_VERSION="0.12.1"
+        find . -name '*.podspec' | xargs -I% pod repo push git@github.com:TouchInstinct/Podspecs % --allow-warnings
