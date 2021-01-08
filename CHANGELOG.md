@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [4.0.7](https://github.com/Loupehope/jjjjj/compare/4.0.6...4.0.7) (2021-01-08)
 
+### [4.0.7](https://github.com/Loupehope/jjjjj/compare/4.0.6...4.0.7) (2021-01-08)
+
 ### [4.0.6](https://github.com/Loupehope/jjjjj/compare/4.0.5...4.0.6) (2021-01-08)
 
 ### [4.0.5](https://github.com/Loupehope/jjjjj/compare/4.0.4...4.0.5) (2021-01-08)
