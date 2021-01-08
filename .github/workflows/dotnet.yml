@@ -28,6 +28,6 @@ jobs:
       run: |
         set -euo pipefail
         export RELEASE_VERSION="0.12.1"
-        pod repo add touchinstinct https://github.com/TouchInstinct/Podspecs
+        pod repo add touchinstinct git@github.com:TouchInstinct/Podspecs
         find . -name '*.podspec' | xargs -I% pod repo push git@github.com:TouchInstinct/Podspecs % --allow-warnings --verbose
         rm -r ~/.ssh/
