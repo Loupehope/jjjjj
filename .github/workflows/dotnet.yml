@@ -27,14 +27,19 @@ jobs:
         ssh-add
       env:
         key: ${{ secrets.SSH_KEY }}
-            
-    - name: Fetch all tags
-      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
-    - name: Bump version
+    
+    - name: Config Git
       run: |
         git config --global user.name "RxRealm Maintainers"
         git config --global user.email "rx-realm@rxswift.org"
+
+    - name: Fetch all tags
+      run: |
+        git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        
+
+    - name: Bump version
+      run: |
         npx standard-version -t ''
         echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
         export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
