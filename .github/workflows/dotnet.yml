@@ -38,3 +38,9 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.event.pull_request.head.ref }}
+
+    - name: Auto approve
+      if: contains(github.event.head_commit.message, 'chore(release)')
+      uses: hmarr/auto-approve-action@v2.0.0
+      with:
+        github-token: ${{ secrets.APPROVE_TOKEN }}
