@@ -47,7 +47,7 @@ jobs:
         release_name: LeadKit ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
-        commitish: ${{ github.after }}
+        commitish: ${{ github.ref }}
 
     - name: Deploy to Cocoapods
       run: |
