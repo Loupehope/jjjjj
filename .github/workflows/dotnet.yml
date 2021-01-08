@@ -28,6 +28,7 @@ jobs:
       run: |
         set -euo pipefail
         export RELEASE_VERSION="0.12.1"
+        mkdir ~/.cocoapods/repos
         cd ~/.cocoapods/repos
         git clone https://github.com/TouchInstinct/Podspecs.git
         cd -
