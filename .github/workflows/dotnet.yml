@@ -1,14 +1,16 @@
 name: release
 
 on:
-  pull_request_target:
-    types: [assigned]
+  push:
+    branches: [ master, main ]
 
 env:
   DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
 
 jobs:
   create-release:
+    if: github.event.review.state == 'approved'
+    
     runs-on: macos-latest
 
     steps:
