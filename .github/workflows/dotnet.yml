@@ -28,7 +28,7 @@ jobs:
       run: |
         set -euo pipefail
         export RELEASE_VERSION="0.12.1"
-        pod repo add Podspecs https://github.com/TouchInstinct/Podspecs
+        pod repo add touchinstinct https://github.com/TouchInstinct/Podspecs
         cd ~/.cocoapods/repos/Podspecs
         cd -
         find . -name '*.podspec' | xargs -I% pod repo push git@github.com:TouchInstinct/Podspecs % --allow-warnings --verbose
