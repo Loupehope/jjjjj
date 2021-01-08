@@ -47,7 +47,6 @@ jobs:
         release_name: LeadKit ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
-        commitish: master
 
     - name: Deploy to Cocoapods
       run: |
