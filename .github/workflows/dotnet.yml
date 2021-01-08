@@ -1,7 +1,8 @@
 name: release
 
 on:
-  push:
+  pull_request_review:
+    types: [submitted]
     branches: [ master, main ]
 
 env:
@@ -27,13 +28,14 @@ jobs:
         ssh-add
       env:
         key: ${{ secrets.SSH_KEY }}
-    
+            
     - name: Fetch all tags
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
     - name: Bump version
       run: |
-        set -euo pipefail
+        git config --global user.name "RxRealm Maintainers"
+        git config --global user.email "rx-realm@rxswift.org"
         npx standard-version -t ''
         echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
         export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
@@ -45,7 +47,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        branch: ${{ github.event.pull_request.head.ref }}
 
     - name: Create Release
       id: create_release
