@@ -36,6 +36,7 @@ jobs:
         find . -name '*.podspec' | xargs -I% npx podspec-bump -i $VERSION -w -p %
         git add -A
         git commit --amend --no-edit
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
@@ -52,10 +53,3 @@ jobs:
         release_name: LeadKit ${{ env.RELEASE_VERSION }}
         draft: false
         prerelease: false
-
-    - name: Deploy to Cocoapods
-      run: |
-        set -euo pipefail
-        pod repo add touchinstinct git@github.com:TouchInstinct/Podspecs
-        find . -name '*.podspec' | xargs -I% pod repo push git@github.com:TouchInstinct/Podspecs % --allow-warnings --verbose
-        rm -r ~/.ssh/
