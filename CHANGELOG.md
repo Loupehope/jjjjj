@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/Loupehope/jjjjj/compare/1.1.0...2.0.0) (2021-01-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* update script
+
+### Features
+
+* update script ([59a598e](https://github.com/Loupehope/jjjjj/commit/59a598eb7daa3dbd42a883200aa60d6377991844))
+
 ## 1.1.0 (2021-01-08)
 
 
