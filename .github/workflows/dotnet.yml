@@ -1,9 +1,8 @@
 name: release
 
 on:
-  pull_request_review_comment:
-    types: [created, deleted]
-    branches: [ master, main ]
+  pull_request_target:
+    types: [assigned]
 
 env:
   DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
