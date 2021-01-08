@@ -28,7 +28,12 @@ jobs:
         ssh-add
       env:
         key: ${{ secrets.SSH_KEY }}
-    
+        
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+            
     - name: Fetch all tags
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
