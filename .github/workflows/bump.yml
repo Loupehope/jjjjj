@@ -1,1 +1,48 @@
+name: bump
 
+on:
+  push:
+    branches: [ master, main ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
+
+jobs:
+  create-release:
+    if: "contains(github.event.head_commit.message, 'chore(release)')"
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2  
+      with:
+        token: ${{ secrets.RELEASE_TOKEN }}
+        fetch-depth: 0
+
+    - name: Fetch all tags
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+        - name: Bump version
+      run: |
+        npx standard-version -t ''
+        echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
+        export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
+        find . -name '*.podspec' | xargs -I% npx podspec-bump -i $VERSION -w -p %
+        git add -A
+  
+    - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: 'chore(bump): ${VERSION}'
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: bump-version-$VERSION
+          delete-branch: true
+          title: 'Bump version - ${VERSION}'
+          body: |
+            Bump LeadKit version to $VERSION.
+          labels: |
+            release
+          draft: false
