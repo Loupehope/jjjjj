@@ -9,7 +9,7 @@ env:
 
 jobs:
   create-release:
-    if: "!contains(github.event.head_commit.message, 'chore(release)')"
+    if: "contains(github.event.head_commit.message, 'chore(bump)')"
 
     runs-on: macos-latest
 
@@ -21,21 +21,6 @@ jobs:
 
     - name: Fetch all tags
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-
-    - name: Bump version
-      run: |
-        npx standard-version -t ''
-        echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
-        export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
-        find . -name '*.podspec' | xargs -I% npx podspec-bump -i "0.12.0" -w -p %
-        git add -A
-        git commit --amend --no-edit
-  
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.RELEASE_TOKEN }}
-        branch: ${{ github.ref }}
 
     - name: Create Release
       id: create_release
@@ -53,4 +38,4 @@ jobs:
       run: |
         set -euo pipefail
         pod repo add touchinstinct https://github.com/TouchInstinct/Podspecs
-        find . -name '*.podspec' | xargs -I% pod repo push https://github.com/TouchInstinct/Podspecs % --allow-warnings
+        #find . -name '*.podspec' | xargs -I% pod repo push https://github.com/TouchInstinct/Podspecs % --allow-warnings
