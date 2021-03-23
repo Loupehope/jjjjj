@@ -8,8 +8,8 @@ env:
   DEVELOPER_DIR: /Applications/Xcode_12.3.app/Contents/Developer
 
 jobs:
-  create-release:
-    if: "contains(github.event.head_commit.message, 'chore(release)')"
+  bump:
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
 
     runs-on: macos-latest
 
@@ -34,7 +34,7 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.PAT }}
-        commit-message: 'chore(bump): ${VERSION}'
+        commit-message: 'chore(release): ${VERSION}'
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         signoff: false
