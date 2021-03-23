@@ -14,9 +14,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2  
-      with:
-        fetch-depth: 0
+    - uses: actions/checkout@v2
 
     - name: Fetch all tags
       run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -32,11 +30,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: 'chore(release): ${VERSION}'
-        committer: GitHub <noreply@github.com>
-        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-        signoff: false
         branch: bump-version-$VERSION
         delete-branch: true
         title: 'Bump version - ${VERSION}'
