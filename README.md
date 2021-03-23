@@ -2,7 +2,7 @@
 
 The repository has adopted the following style of commits:  
   `<type>(<scope>): <subject>` | `<type>: <subject>`
-
+rr
 ---  
    
 If a commit contains *Breaking Changes*, use `!` to show it:   
